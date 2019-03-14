@@ -4,10 +4,14 @@ const { FileSystemWallet, Gateway } = require('fabric-network');
 const fs = require('fs');
 const path = require('path');
 
-const ccpPath = path.resolve(__dirname, '..', 'basic-network', 'connection.json');
+const ccpPath = path.resolve(__dirname, '..', '..', 'basic-network', 'connection.json');
 const ccpJSON = fs.readFileSync(ccpPath, 'utf8');
 const ccp = JSON.parse(ccpJSON);
 
+if(process.argv.length!=4){
+	console.log("Usage : node castVote.js VOTERID CANDIDATEID");
+	process.exit();
+}
 var voterId = process.argv[2];
 var candidateId = process.argv[3];
 
@@ -32,8 +36,8 @@ async function main() {
 
         const contract = network.getContract('vote');
 
-        await contract.submitTransaction('castVote', voterId, candidateId);
-        console.log('Transaction has been submitted');
+        const result = await contract.submitTransaction('castVote', voterId, candidateId);
+        console.log(result.toString());
 
         await gateway.disconnect();
 

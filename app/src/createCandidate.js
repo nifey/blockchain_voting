@@ -4,9 +4,17 @@ const { FileSystemWallet, Gateway } = require('fabric-network');
 const fs = require('fs');
 const path = require('path');
 
-const ccpPath = path.resolve(__dirname, '..', 'basic-network', 'connection.json');
+const ccpPath = path.resolve(__dirname, '..', '..', 'basic-network', 'connection.json');
 const ccpJSON = fs.readFileSync(ccpPath, 'utf8');
 const ccp = JSON.parse(ccpJSON);
+
+if(process.argv.length!=5){
+	console.log("Usage : node queryCandidate.js CANDIDATEID Name Party");
+	process.exit();
+}
+var candidateId = process.argv[2];
+var name = process.argv[3];
+var party = process.argv[4];
 
 async function main() {
     try {
@@ -29,14 +37,13 @@ async function main() {
 
         const contract = network.getContract('vote');
 
-        const result = await contract.evaluateTransaction('queryAllCandidates');
-	var res = JSON.parse(result.toString());
-	for (var candidate in res){
-		console.log("\nID: "+res[candidate]['Key'] +"\nName: "+ res[candidate]['Record']['name']+"\nParty: "+res[candidate]['Record']['party']+"\nVotes: "+res[candidate]['Record']['votes']);
-	}
+        const result = await contract.submitTransaction('createCandidate', candidateId, name, party);
+        console.log(result.toString());
+
+        await gateway.disconnect();
 
     } catch (error) {
-        console.error(`Failed to evaluate transaction: ${error}`);
+        console.error(`Failed to submit transaction: ${error}`);
         process.exit(1);
     }
 }

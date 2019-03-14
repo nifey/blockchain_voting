@@ -4,17 +4,9 @@ const { FileSystemWallet, Gateway } = require('fabric-network');
 const fs = require('fs');
 const path = require('path');
 
-const ccpPath = path.resolve(__dirname, '..', 'basic-network', 'connection.json');
+const ccpPath = path.resolve(__dirname, '..', '..', 'basic-network', 'connection.json');
 const ccpJSON = fs.readFileSync(ccpPath, 'utf8');
 const ccp = JSON.parse(ccpJSON);
-
-if(process.argv.length!=5){
-	console.log("Usage : node queryCandidate.js CANDIDATEID Name Party");
-	process.exit();
-}
-var candidateId = process.argv[2];
-var name = process.argv[3];
-var party = process.argv[4];
 
 async function main() {
     try {
@@ -37,7 +29,7 @@ async function main() {
 
         const contract = network.getContract('vote');
 
-        const result = await contract.submitTransaction('createCandidate', candidateId, name, party);
+        const result = await contract.submitTransaction('endElection');
         console.log(result.toString());
 
         await gateway.disconnect();
