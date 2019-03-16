@@ -1,0 +1,19 @@
+<% include partials/header.ejs %>
+<% if(eStatus=="Not Started"){ %>
+<h2>Election has not started. Please check later</h2>
+<a href='/'><input type='button' value='Home'/></a>
+<% } else if(valid) { %>
+<h3>Voter Id: 
+<%= voterId %>
+</h3>
+<br>
+<h3>Status: 
+<%= vStatus %>
+</h3>
+<a href='/'><input type='button' value='Home'/></a>
+<% } else if(valid) { %>
+<% } else { %>
+<h2>Invalid voter ID</h2>
+<a href='/'><input type='button' value='Home'/></a>
+<% } %>
+<% include partials/footer.ejs %>

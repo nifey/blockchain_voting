@@ -50,6 +50,8 @@ func (s *SmartContract) Invoke(APIstub shim.ChaincodeStubInterface) sc.Response 
 		return s.castVote(APIstub, args)
 	} else if function == "endElection" {
 		return s.endElection(APIstub)
+	} else if function == "checkElectionStatus" {
+		return s.checkElectionStatus(APIstub)
 	}
 
 	return shim.Error("Invalid Smart Contract function name.")
@@ -193,11 +195,17 @@ func (s *SmartContract) createCandidate(APIstub shim.ChaincodeStubInterface, arg
 	if err != nil {
 		return shim.Error(err.Error())
 	}
-	election := Election{}
-	json.Unmarshal(electionAsBytes, &election)
-	if election.Ended {
+	if len(electionAsBytes) != 0 {
+		election := Election{}
+		json.Unmarshal(electionAsBytes, &election)
+		if election.Ended {
+			var buffer bytes.Buffer
+			buffer.WriteString("Election ended")
+			fmt.Printf("%s\n", buffer.String())
+			return shim.Success(buffer.Bytes())
+		}
 		var buffer bytes.Buffer
-		buffer.WriteString("Election ended")
+		buffer.WriteString("Election already started")
 		fmt.Printf("%s\n", buffer.String())
 		return shim.Success(buffer.Bytes())
 	}
@@ -334,8 +342,34 @@ func (s *SmartContract) castVote(APIstub shim.ChaincodeStubInterface, args []str
 	}
 
 	var buffer bytes.Buffer
-	buffer.WriteString("Successfully voted for "+args[1])
+	buffer.WriteString("Successfully voted for "+candidate.Name)
 	return shim.Success(buffer.Bytes())
+}
+
+func (s *SmartContract) checkElectionStatus(APIstub shim.ChaincodeStubInterface) sc.Response {
+	electionAsBytes, err := APIstub.GetState("ELECTION")
+	if err != nil {
+		return shim.Error(err.Error())
+	}
+	if len(electionAsBytes) == 0 {
+		var buffer bytes.Buffer
+		buffer.WriteString("Not Started")
+		fmt.Printf("%s\n", buffer.String())
+		return shim.Success(buffer.Bytes())
+	}
+	election := Election{}
+	json.Unmarshal(electionAsBytes, &election)
+	if election.Ended {
+		var buffer bytes.Buffer
+		buffer.WriteString("Ended")
+		fmt.Printf("%s\n", buffer.String())
+		return shim.Success(buffer.Bytes())
+	} else {
+		var buffer bytes.Buffer
+		buffer.WriteString("Started")
+		fmt.Printf("%s\n", buffer.String())
+		return shim.Success(buffer.Bytes())
+	}
 }
 
 func main() {

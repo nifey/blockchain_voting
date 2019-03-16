@@ -1,0 +1,18 @@
+<% include partials/header.ejs %>
+<h2>Candidates</h2>
+<table>
+	<tr>
+		<th>ID</th>
+		<th>Name</th>
+		<th>Party</th>
+	</tr>
+	<% candidates.forEach(function(candidate){ %>
+	<tr>
+		<td><%= candidate.Key %></td>
+		<td><%= candidate.Record.name %></td>
+		<td><%= candidate.Record.party %></td>
+	</tr>
+	<% }) %>
+<table>
+<a href='/'><input type='button' value='Home'/></a>
+<% include partials/footer.ejs %>

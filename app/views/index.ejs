@@ -1,0 +1,36 @@
+<% include partials/header.ejs %>
+<h2>Election status: <%= eStatus %>
+</h2>
+<form method="GET" action="/candidates">
+<input type="submit" value="Show Candidates"/>
+</form>
+<% if(eStatus!="Not Started"){ %>
+<form method="POST" action="/voter">
+<input type="label" value="Enter voter ID: "/>
+<input type="textbox" name="voterId" REQUIRED/>
+<input type="submit" value="Check Vote"/>
+</form>
+<% } %>
+<% if(eStatus=="Started"){ %>
+<form method="POST" action="/vote">
+<input type="label" value="Enter voter ID: "/>
+<input type="textbox" name="voterId" REQUIRED/>
+<input type="label" value="Select Candidate: "/>
+<select name="candidate">
+
+	<% candidates.forEach(function(candidate){ %>
+	<option value='<%= candidate.Key %>'>
+		<%= candidate.Record.name %>
+	</option>
+	<% }) %>
+
+</select>
+<input type="submit" value="Vote"/>
+</form>
+<% } %>
+<% if(eStatus=="Ended"){ %>
+<form method="GET" action="/results">
+<input type="submit" value="Show Results"/>
+</form>
+<% } %>
+<% include partials/footer.ejs %>

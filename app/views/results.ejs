@@ -1,0 +1,23 @@
+<% include partials/header.ejs %>
+<% if(eStatus!="Ended"){ %>
+<h2>Election has not ended. Please check later</h2>
+<a href='/'><input type='button' value='Home'/></a>
+<% } else { %>
+<h2>Candidates</h2>
+<table>
+	<tr>
+		<th>Name</th>
+		<th>Party</th>
+		<th>Votes</th>
+	</tr>
+	<% candidates.forEach(function(candidate){ %>
+	<tr>
+		<td><%= candidate.name %></td>
+		<td><%= candidate.party %></td>
+		<td><%= candidate.votes %></td>
+	</tr>
+	<% }) %>
+<table>
+<a href='/'><input type='button' value='Home'/></a>
+<% } %>
+<% include partials/footer.ejs %>
