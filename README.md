@@ -2,4 +2,6 @@
 
 Made using Hyperledger Fabric
 
-basic_network folder is taken from fabric-samples
+The basic-network folder is taken from fabric-samples.
+
+The ballot box icon was taken from [https://iconarchive.com](https://iconarchive.com).

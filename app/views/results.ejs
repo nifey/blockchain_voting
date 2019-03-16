@@ -1,9 +1,15 @@
 <% include partials/header.ejs %>
 <% if(eStatus!="Ended"){ %>
+<div id="header">
 <h2>Election has not ended. Please check later</h2>
+<img id="icon" src="icon.png"/>
+</div>
 <a href='/'><input type='button' value='Home'/></a>
 <% } else { %>
-<h2>Candidates</h2>
+<div id="header">
+<h2>Results</h2>
+<img id="icon" src="icon.png"/>
+</div>
 <table>
 	<tr>
 		<th>Name</th>

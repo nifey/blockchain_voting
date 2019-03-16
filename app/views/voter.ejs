@@ -1,6 +1,10 @@
 <% include partials/header.ejs %>
+<div id="header">
+<h2>Voter Details</h2>
+<img id="icon" src="icon.png"/>
+</div>
 <% if(eStatus=="Not Started"){ %>
-<h2>Election has not started. Please check later</h2>
+<h3>Election has not started. Please check later</h3>
 <a href='/'><input type='button' value='Home'/></a>
 <% } else if(valid) { %>
 <h3>Voter Id: 
@@ -13,7 +17,7 @@
 <a href='/'><input type='button' value='Home'/></a>
 <% } else if(valid) { %>
 <% } else { %>
-<h2>Invalid voter ID</h2>
+<h3>Invalid voter ID</h3>
 <a href='/'><input type='button' value='Home'/></a>
 <% } %>
 <% include partials/footer.ejs %>

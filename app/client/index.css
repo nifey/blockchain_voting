@@ -1,7 +1,68 @@
 #body{
 	margin: auto;
+	margin-top:70px;
 	border: 2px solid black;
 	display:block;
 	width: 50%;
-	height: 50%;
+	padding: 10px;
+	border-radius: 40px;
+	border-color: #567dd0;
+	box-shadow: 10px 20px;
+}
+
+h1, h2, h3 {
+	text-align: center;
+}
+
+h2 {
+	color: #567dd0;
+	float:left;
+	width:80%;
+	padding-left:40px;
+}
+
+#icon{
+	width:90px;
+	height:90px;
+	float:right;
+}
+
+#header{
+	height:90px;
+	text-align:center;
+}
+
+form {
+	display:block;
+	border: 2px solid #567dd0;
+	align: center;
+	text-align:center;
+	padding: 10px;
+	margin-top:20px;
+	border-radius: 30px;
+}
+
+input {
+	margin: 0 auto;
+}
+
+table {
+	margin: auto;
+	margin-top: 20px;
+	margin-bottom: 30px;
+	width: 90%;
+}
+
+th {
+	text-decoration: bold;
+}
+
+th,td{
+	border-bottom: 1px solid black;
+	padding: 2px;
+}
+
+a{
+	display:block;
+	text-align: center;
 }

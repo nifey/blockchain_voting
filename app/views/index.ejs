@@ -1,21 +1,24 @@
 <% include partials/header.ejs %>
+<div id="header">
 <h2>Election status: <%= eStatus %>
 </h2>
+<img id="icon" src="icon.png"/>
+</div>
 <form method="GET" action="/candidates">
 <input type="submit" value="Show Candidates"/>
 </form>
 <% if(eStatus!="Not Started"){ %>
 <form method="POST" action="/voter">
-<input type="label" value="Enter voter ID: "/>
+<b>Enter voter ID: </b>
 <input type="textbox" name="voterId" REQUIRED/>
 <input type="submit" value="Check Vote"/>
 </form>
 <% } %>
 <% if(eStatus=="Started"){ %>
 <form method="POST" action="/vote">
-<input type="label" value="Enter voter ID: "/>
-<input type="textbox" name="voterId" REQUIRED/>
-<input type="label" value="Select Candidate: "/>
+<b>Enter voter ID: </b>
+<input type="textbox" name="voterId" REQUIRED/><br><br>
+<b>Select Candidate: </b>
 <select name="candidate">
 
 	<% candidates.forEach(function(candidate){ %>
@@ -25,6 +28,7 @@
 	<% }) %>
 
 </select>
+<br><br>
 <input type="submit" value="Vote"/>
 </form>
 <% } %>
